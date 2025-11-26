@@ -1,5 +1,7 @@
 package com.jpmc.midascore;
 
+import com.jpmc.midascore.foundation.Transaction;
+
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +26,7 @@ class TaskTwoTests {
     void task_two_verifier() throws InterruptedException {
         String[] transactionLines = fileLoader.loadStrings("/test_data/poiuytrewq.uiop");
         for (String transactionLine : transactionLines) {
-            kafkaProducer.send(transactionLine);
+            kafkaProducer.send(new Transaction(transactionLine));
         }
         Thread.sleep(2000);
         logger.info("----------------------------------------------------------");

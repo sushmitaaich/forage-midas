@@ -9,7 +9,10 @@ public class Balance {
     public Balance() {
     }
 
-    public Balance(float amount) {
+    private long userId;
+
+    public Balance(long userId, float amount) {
+        this.userId = userId;
         this.amount = amount;
     }
 

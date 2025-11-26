@@ -1,6 +1,8 @@
 package com.jpmc.midascore;
 
+import com.jpmc.midascore.component.DatabaseConduit;
 import com.jpmc.midascore.foundation.Balance;
+import com.jpmc.midascore.foundation.Transaction;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,13 +29,15 @@ public class TaskFiveTests {
     @Autowired
     private BalanceQuerier balanceQuerier;
 
+    @Autowired
+    private DatabaseConduit databaseConduit;
 
     @Test
     void task_five_verifier() throws InterruptedException {
         userPopulator.populate();
         String[] transactionLines = fileLoader.loadStrings("/test_data/rueiwoqp.tyruei");
         for (String transactionLine : transactionLines) {
-            kafkaProducer.send(transactionLine);
+            kafkaProducer.send(new Transaction());
         }
         Thread.sleep(2000);
 
@@ -48,5 +52,9 @@ public class TaskFiveTests {
         }
         output.append("---end output ---");
         logger.info(output.toString());
+        while (true) 
+        {
+            Thread.sleep(20000);
+        }
     }
 }
